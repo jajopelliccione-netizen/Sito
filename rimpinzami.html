@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rimpinzami – All You Can Eat Roma</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Libre+Baskerville:ital@1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f5efe3;
+    --parchment: #e8dcc8;
+    --terracotta: #c1440e;
+    --rust: #a33508;
+    --gold: #c9962a;
+    --dark: #1e1207;
+    --mid: #4a3220;
+    --light-text: #7a5c3e;
+    --white: #fdfaf5;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--dark);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 3rem;
+    background: rgba(30,18,7,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(201,150,42,0.25);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--gold);
+    letter-spacing: 0.04em;
+  }
+
+  .nav-logo span {
+    font-style: italic;
+    color: var(--terracotta);
+  }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2.5rem;
+  }
+
+  nav ul a {
+    color: var(--parchment);
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  nav ul a:hover { color: var(--gold); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: var(--dark);
+    overflow: hidden;
+    padding-top: 80px;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 70% 60%, rgba(193,68,14,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 20% 30%, rgba(201,150,42,0.12) 0%, transparent 60%);
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(201,150,42,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,150,42,0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    animation: fadeUp 1s ease both;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    opacity: 0.85;
+  }
+
+  .hero-logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(5rem, 14vw, 11rem);
+    color: var(--white);
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-logo-text .italic-part {
+    font-style: italic;
+    color: var(--terracotta);
+  }
+
+  .hero-sub {
+    font-family: 'Libre Baskerville', serif;
+    font-style: italic;
+    color: var(--parchment);
+    font-size: 1.15rem;
+    margin-top: 1.5rem;
+    opacity: 0.75;
+    letter-spacing: 0.06em;
+  }
+
+  .hero-badges {
+    margin-top: 2.5rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .badge {
+    border: 1px solid rgba(201,150,42,0.5);
+    color: var(--gold);
+    padding: 0.55rem 1.6rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-radius: 100px;
+    animation: fadeUp 1s 0.3s ease both;
+    backdrop-filter: blur(6px);
+    background: rgba(201,150,42,0.08);
+  }
+
+  .badge.filled {
+    background: linear-gradient(135deg, var(--terracotta), #e05520);
+    border-color: transparent;
+    color: white;
+    font-weight: 500;
+    box-shadow: 0 4px 20px rgba(193,68,14,0.4);
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(245,239,227,0.4);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    animation: fadeUp 1s 0.6s ease both;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, rgba(201,150,42,0.6), transparent);
+    animation: pulse 2s infinite;
+  }
+
+  /* ── SECTIONS ── */
+  section { position: relative; z-index: 1; }
+
+  /* ── ABOUT ── */
+  #about {
+    padding: 7rem 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: center;
+  }
+
+  .about-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 1rem;
+  }
+
+  .about-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    color: var(--dark);
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-title em { color: var(--terracotta); font-style: italic; }
+
+  .about-text {
+    font-size: 1rem;
+    line-height: 1.85;
+    color: var(--mid);
+    font-weight: 300;
+  }
+
+  .about-text + .about-text { margin-top: 1rem; }
+
+  .about-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .about-card {
+    background: var(--white);
+    border: 1px solid rgba(193,68,14,0.1);
+    padding: 1.6rem 2rem;
+    border-radius: 18px;
+    box-shadow: 0 2px 30px rgba(0,0,0,0.05);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--terracotta), var(--gold));
+    border-radius: 18px 18px 0 0;
+  }
+
+  .about-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+  }
+
+  .about-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--terracotta);
+    margin-bottom: 0.3rem;
+  }
+
+  .about-card-price {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--dark);
+    line-height: 1;
+  }
+
+  .about-card-price span {
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--light-text);
+  }
+
+  .about-card-desc {
+    font-size: 0.85rem;
+    color: var(--light-text);
+    margin-top: 0.4rem;
+  }
+
+  /* ── DIVIDER ── */
+  .ornament {
+    text-align: center;
+    padding: 2rem;
+    color: var(--gold);
+    font-size: 1.5rem;
+    letter-spacing: 0.5rem;
+    opacity: 0.5;
+  }
+
+  /* ── MENU ── */
+  #menu {
+    background: var(--dark);
+    padding: 6rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #menu::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='300' height='300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  }
+
+  .menu-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    position: relative;
+  }
+
+  .menu-eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.8;
+    margin-bottom: 1rem;
+  }
+
+  .menu-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    color: var(--white);
+    font-style: italic;
+  }
+
+  .menu-title strong { font-style: normal; color: var(--terracotta); }
+
+  .menu-note {
+    color: rgba(245,239,227,0.45);
+    font-size: 0.85rem;
+    margin-top: 0.8rem;
+    font-style: italic;
+  }
+
+  .menu-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 0.4rem;
+    margin-bottom: 3.5rem;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(201,150,42,0.2);
+    border-radius: 100px;
+    padding: 0.35rem;
+    max-width: 680px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 3.5rem;
+  }
+
+  .tab-btn {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    background: transparent;
+    color: rgba(245,239,227,0.45);
+    border: none;
+    cursor: pointer;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.3s;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+
+  .tab-btn.active {
+    background: linear-gradient(135deg, var(--terracotta), #e05520);
+    color: white;
+    font-weight: 500;
+    box-shadow: 0 4px 16px rgba(193,68,14,0.4);
+  }
+
+  .tab-btn:hover:not(.active) {
+    background: rgba(201,150,42,0.12);
+    color: var(--gold);
+  }
+
+  .menu-section { display: none; max-width: 1100px; margin: 0 auto; }
+  .menu-section.active { display: block; }
+
+  .menu-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .menu-col-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--gold);
+    font-style: italic;
+    border-bottom: 1px solid rgba(201,150,42,0.25);
+    padding-bottom: 0.8rem;
+    margin-bottom: 1.5rem;
+    grid-column: 1 / -1;
+  }
+
+  .menu-category {
+    margin-bottom: 2rem;
+  }
+
+  .category-name {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .category-name::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(193,68,14,0.2);
+  }
+
+  .menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid rgba(245,239,227,0.06);
+  }
+
+  .menu-item:last-child { border-bottom: none; }
+
+  .item-name {
+    color: var(--parchment);
+    font-size: 0.9rem;
+    font-weight: 300;
+    flex: 1;
+  }
+
+  .item-desc {
+    font-style: italic;
+    color: rgba(245,239,227,0.4);
+    font-size: 0.78rem;
+    display: block;
+    margin-top: 0.1rem;
+  }
+
+  .item-price {
+    color: var(--gold);
+    font-size: 0.85rem;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  /* ── GALLERY ── */
+  #gallery {
+    padding: 6rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .gallery-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .gallery-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    color: var(--dark);
+  }
+
+  .gallery-header h2 em { color: var(--terracotta); }
+
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+  }
+
+  .photo-card {
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: 20px;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .photo-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+    filter: saturate(0.9);
+  }
+
+  .photo-card:hover img {
+    transform: scale(1.07);
+    filter: saturate(1.1);
+  }
+
+  .photo-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(30,18,7,0.4), transparent 50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .photo-card:hover::after { opacity: 1; }
+
+  .photo-card.wide { grid-column: span 2; aspect-ratio: 2/1; }
+
+  /* ── INFO ── */
+  #info {
+    background: var(--dark);
+    padding: 5rem 2rem;
+  }
+
+  .info-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    text-align: center;
+  }
+
+  .info-block {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(201,150,42,0.15);
+    border-radius: 20px;
+    padding: 2.5rem 1.5rem;
+    transition: background 0.3s;
+  }
+
+  .info-block:hover {
+    background: rgba(255,255,255,0.07);
+  }
+
+  .info-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .info-block h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    font-style: italic;
+  }
+
+  .info-block p {
+    color: rgba(245,239,227,0.6);
+    font-size: 0.9rem;
+    line-height: 1.85;
+    font-weight: 300;
+  }
+
+  .info-block a {
+    color: var(--terracotta);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .info-block a:hover { color: #e05520; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #0e0905;
+    padding: 2rem;
+    text-align: center;
+    color: rgba(245,239,227,0.25);
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+  }
+
+  footer strong { color: var(--gold); opacity: 0.7; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  /* ── REVIEWS ── */
+  #reviews {
+    background: var(--cream);
+    padding: 6rem 2rem;
+  }
+
+  .reviews-header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+  }
+
+  .reviews-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    color: var(--dark);
+  }
+
+  .reviews-header h2 em { color: var(--terracotta); font-style: italic; }
+
+  .stars {
+    color: var(--gold);
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+  }
+
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    max-width: 1100px;
+    margin: 0 auto 2.5rem;
+  }
+
+  .review-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 2rem 2.2rem;
+    box-shadow: 0 2px 30px rgba(0,0,0,0.06);
+    position: relative;
+    border: 1px solid rgba(193,68,14,0.08);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    overflow: hidden;
+  }
+
+  .review-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 50px rgba(0,0,0,0.1);
+  }
+
+  .review-card::before {
+    content: '"';
+    position: absolute;
+    top: 0.5rem;
+    right: 1.5rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 6rem;
+    color: var(--terracotta);
+    opacity: 0.07;
+    line-height: 1;
+  }
+
+  .review-text {
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: var(--mid);
+    font-weight: 300;
+    margin-bottom: 1.2rem;
+  }
+
+  .reviewer-name {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--light-text);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  .reviewer-source {
+    font-size: 0.72rem;
+    color: var(--terracotta);
+    opacity: 0.7;
+    margin-left: 0.5rem;
+  }
+
+  .reviews-cta {
+    text-align: center;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--terracotta), #e05520);
+    color: white;
+    padding: 1rem 2.4rem;
+    border-radius: 100px;
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(193,68,14,0.35);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-primary::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.18) 50%, transparent 60%);
+    transform: translateX(-100%);
+    transition: transform 0.5s ease;
+  }
+
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(193,68,14,0.45); }
+  .btn-primary:hover::after { transform: translateX(100%); }
+
+  .btn-outline {
+    display: inline-block;
+    border: 1.5px solid var(--terracotta);
+    color: var(--terracotta);
+    padding: 1rem 2.4rem;
+    border-radius: 100px;
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: all 0.3s;
+    background: transparent;
+  }
+
+  .btn-outline:hover {
+    background: var(--terracotta);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(193,68,14,0.35);
+  }
+
+  .google-rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--white);
+    border: 1px solid rgba(201,150,42,0.25);
+    border-radius: 100px;
+    padding: 0.5rem 1.4rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.82rem;
+    color: var(--mid);
+    box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+  }
+
+  .google-rating strong { color: var(--dark); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    nav ul { gap: 1.2rem; }
+    nav ul a { font-size: 0.7rem; }
+    #about { grid-template-columns: 1fr; gap: 3rem; padding: 4rem 1.5rem; }
+    .menu-columns { grid-template-columns: 1fr; }
+    .menu-tabs { border-radius: 16px; flex-wrap: wrap; }
+    .photo-grid { grid-template-columns: 1fr 1fr; }
+    .photo-card.wide { grid-column: span 2; }
+    .info-inner { grid-template-columns: 1fr; gap: 1rem; }
+    .reviews-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Rimpin<span>zami</span></div>
+  <ul>
+    <li><a href="#about">Chi siamo</a></li>
+    <li><a href="#menu">Menù</a></li>
+    <li><a href="#gallery">Foto</a></li>
+    <li><a href="#reviews">Recensioni</a></li>
+    <li><a href="#info">Info</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Pizzeria · Trattoria · Roma</p>
+    <h1 class="hero-logo-text">
+      Rimpin<span class="italic-part">zami</span>
+    </h1>
+    <p class="hero-sub">All You Can Eat · Cinecittà, Roma</p>
+    <div class="hero-badges">
+      <div class="badge filled">Pinsa no-stop 17€</div>
+      <div class="badge">Menù pasta 21€</div>
+      <div class="badge">Bevande incluse</div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>scorri</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div>
+    <p class="about-label">La nostra storia</p>
+    <h2 class="about-title">
+      Un luogo allegro<br>e <em>informale</em> a Roma
+    </h2>
+    <p class="about-text">
+      Benvenuto da Rimpinzami, il locale dove la convivialità è regina e il piatto non rimane mai vuoto. Siamo a Cinecittà, e proponiamo due menù non-stop pensati per chi ama mangiare bene, senza fretta e senza pensieri.
+    </p>
+    <p class="about-text">
+      Pasta fresca, pinsa romana, arrosticini e tanto altro — tutto in un ambiente caldo, informale e pieno di vita. Le bevande? Incluse, naturalmente.
+    </p>
+  </div>
+  <div class="about-cards">
+    <div class="about-card">
+      <div class="about-card-title">Menù Pasta</div>
+      <div class="about-card-price">21€ <span>/ persona</span></div>
+      <div class="about-card-desc">Antipasti · Primi illimitati · Dolce · Bevande incluse</div>
+    </div>
+    <div class="about-card">
+      <div class="about-card-title">Pinsa No-Stop</div>
+      <div class="about-card-price">17€ <span>/ persona</span></div>
+      <div class="about-card-desc">40 gusti di pinsa romana · Bevande incluse</div>
+    </div>
+    <div class="about-card" style="border-color: var(--gold);">
+      <div class="about-card-title" style="color: var(--gold);">Menù Completo</div>
+      <div class="about-card-price">21€ <span>/ persona</span></div>
+      <div class="about-card-desc">Tutti i piatti + pinsa + dolci · Bevande incluse</div>
+    </div>
+  </div>
+</section>
+
+<div class="ornament" style="background: var(--cream);">✦ ✦ ✦</div>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="menu-header">
+    <p class="menu-eyebrow">Il nostro</p>
+    <h2 class="menu-title"><strong>Menù</strong> completo</h2>
+    <p class="menu-note">Tutti i prezzi si intendono a persona · bevande incluse nei menù</p>
+  </div>
+
+  <div class="menu-tabs">
+    <button class="tab-btn active" onclick="showTab('pasta')">🍝 Pasta & Antipasti</button>
+    <button class="tab-btn" onclick="showTab('pinsa')">🍕 Pinsa Romana</button>
+    <button class="tab-btn" onclick="showTab('fritti')">🍗 Fritti & Grill</button>
+    <button class="tab-btn" onclick="showTab('dolci')">🍫 Dolci</button>
+  </div>
+
+  <!-- PASTA TAB -->
+  <div id="tab-pasta" class="menu-section active">
+    <div class="menu-columns">
+      <div class="menu-col-title">Pasta & Primi</div>
+      <div class="menu-category">
+        <div class="category-name">Antipasti</div>
+        <div class="menu-item"><span class="item-name">Tagliere misto</span></div>
+        <div class="menu-item"><span class="item-name">Bruschette al pomodoro</span></div>
+        <div class="menu-item"><span class="item-name">Frittura mista</span></div>
+        <div class="menu-item"><span class="item-name">Supplì romani</span></div>
+      </div>
+      <div class="menu-category">
+        <div class="category-name">Primi Piatti</div>
+        <div class="menu-item"><span class="item-name">Spaghetti alla carbonara</span></div>
+        <div class="menu-item"><span class="item-name">Rigatoni all'amatriciana</span></div>
+        <div class="menu-item"><span class="item-name">Penne all'arrabbiata</span></div>
+        <div class="menu-item"><span class="item-name">Spaghetti cacio e pepe</span></div>
+        <div class="menu-item"><span class="item-name">Pasta alla gricia</span></div>
+        <div class="menu-item"><span class="item-name">Penne al pomodoro</span></div>
+        <div class="menu-item"><span class="item-name">Rigatoni alla norma</span></div>
+        <div class="menu-item"><span class="item-name">Pasta al pesto</span></div>
+        <div class="menu-item"><span class="item-name">Pasta al ragù</span></div>
+        <div class="menu-item"><span class="item-name">Pasta ai funghi porcini</span></div>
+        <div class="menu-item"><span class="item-name">Pasta al salmone</span></div>
+        <div class="menu-item"><span class="item-name">Linguine allo scoglio</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PINSA TAB -->
+  <div id="tab-pinsa" class="menu-section">
+    <div class="menu-columns">
+      <div class="menu-col-title">40 Gusti di Pinsa Romana</div>
+      <div class="menu-category">
+        <div class="category-name">Rosse (Base Pomodoro)</div>
+        <div class="menu-item"><span class="item-name">Margherita</span><span class="item-desc">Pomodoro, fior di latte</span></div>
+        <div class="menu-item"><span class="item-name">Diavola</span><span class="item-desc">Pomodoro, fior di latte, salame piccante</span></div>
+        <div class="menu-item"><span class="item-name">Marinara</span><span class="item-desc">Pomodoro, aglio, origano</span></div>
+        <div class="menu-item"><span class="item-name">Prosciutto e funghi</span><span class="item-desc">Pomodoro, prosciutto cotto, funghi</span></div>
+        <div class="menu-item"><span class="item-name">Capricciosa</span><span class="item-desc">Pomodoro, prosciutto, funghi, olive, carciofini</span></div>
+        <div class="menu-item"><span class="item-name">Napoli</span><span class="item-desc">Pomodoro, acciughe, capperi</span></div>
+        <div class="menu-item"><span class="item-name">Ortolana</span><span class="item-desc">Pomodoro, verdure di stagione grigliate</span></div>
+        <div class="menu-item"><span class="item-name">Quattro stagioni</span></div>
+        <div class="menu-item"><span class="item-name">Norma</span><span class="item-desc">Pomodoro, melanzane, ricotta salata</span></div>
+        <div class="menu-item"><span class="item-name">Amatriciana</span><span class="item-desc">Pomodoro, guanciale, pecorino</span></div>
+      </div>
+      <div class="menu-category">
+        <div class="category-name">Bianche (Base Mozzarella)</div>
+        <div class="menu-item"><span class="item-name">Bufalina</span><span class="item-desc">Mozzarella di bufala, pomodorini</span></div>
+        <div class="menu-item"><span class="item-name">Boscaiola</span><span class="item-desc">Salsiccia, funghi porcini</span></div>
+        <div class="menu-item"><span class="item-name">Crudo e rucola</span><span class="item-desc">Prosciutto crudo, rucola, grana</span></div>
+        <div class="menu-item"><span class="item-name">Speck e brie</span></div>
+        <div class="menu-item"><span class="item-name">Cotto e ricotta</span></div>
+        <div class="menu-item"><span class="item-name">Salmone</span><span class="item-desc">Salmone affumicato, mozzarella, rucola</span></div>
+        <div class="menu-item"><span class="item-name">Quattro formaggi</span></div>
+        <div class="menu-item"><span class="item-name">Tonno e cipolla</span></div>
+        <div class="menu-item"><span class="item-name">Gorgonzola e noci</span></div>
+        <div class="menu-item"><span class="item-name">Patate e rosmarino</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FRITTI TAB -->
+  <div id="tab-fritti" class="menu-section">
+    <div class="menu-columns">
+      <div class="menu-col-title">Fritti, Grill & Sfizi</div>
+      <div class="menu-category">
+        <div class="category-name">Fritti</div>
+        <div class="menu-item"><span class="item-name">Supplì al telefono</span></div>
+        <div class="menu-item"><span class="item-name">Olive ascolane</span></div>
+        <div class="menu-item"><span class="item-name">Crocchette di patate</span></div>
+        <div class="menu-item"><span class="item-name">Mozzarella in carrozza</span></div>
+        <div class="menu-item"><span class="item-name">Fiori di zucca fritti</span></div>
+        <div class="menu-item"><span class="item-name">Frittura di calamari</span></div>
+        <div class="menu-item"><span class="item-name">Patatine fritte</span></div>
+      </div>
+      <div class="menu-category">
+        <div class="category-name">Dal Grill</div>
+        <div class="menu-item"><span class="item-name">Arrosticini abruzzesi</span><span class="item-desc">Spiedini di pecora alla brace</span></div>
+        <div class="menu-item"><span class="item-name">Spiedini misti</span><span class="item-desc">Maiale, pollo, agnello</span></div>
+        <div class="menu-item"><span class="item-name">Salsiccia alla griglia</span></div>
+        <div class="menu-item"><span class="item-name">Pollo alla griglia</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOLCI TAB -->
+  <div id="tab-dolci" class="menu-section">
+    <div class="menu-columns">
+      <div class="menu-col-title">Dolci & Fine Pasto</div>
+      <div class="menu-category">
+        <div class="category-name">Dessert</div>
+        <div class="menu-item"><span class="item-name">Pinsa Nutella e nocciole</span><span class="item-desc">La nostra firma — cioccolato, nocciole tritate</span></div>
+        <div class="menu-item"><span class="item-name">Tiramisù della casa</span></div>
+        <div class="menu-item"><span class="item-name">Panna cotta ai frutti di bosco</span></div>
+        <div class="menu-item"><span class="item-name">Cheesecake</span></div>
+        <div class="menu-item"><span class="item-name">Torta di mele</span></div>
+        <div class="menu-item"><span class="item-name">Gelato artigianale</span><span class="item-desc">Gusti a rotazione</span></div>
+      </div>
+      <div class="menu-category">
+        <div class="category-name">Bevande (incluse)</div>
+        <div class="menu-item"><span class="item-name">Acqua naturale / frizzante</span></div>
+        <div class="menu-item"><span class="item-name">Vino della casa (rosso / bianco)</span></div>
+        <div class="menu-item"><span class="item-name">Birra alla spina</span></div>
+        <div class="menu-item"><span class="item-name">Bibite</span></div>
+        <div class="menu-item"><span class="item-name">Caffè</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="gallery-header">
+    <p class="about-label" style="text-align:center;">Le nostre foto</p>
+    <h2 style="font-family:'Playfair Display',serif; font-size:clamp(2rem,5vw,3rem); color:var(--dark);">
+      Dal forno <em style="color:var(--terracotta)">alla tavola</em>
+    </h2>
+  </div>
+  <div class="photo-grid">
+    <div class="photo-card wide">
+      <img src="/mnt/user-data/uploads/1775171799070_image.png" alt="Pinse romane">
+    </div>
+    <div class="photo-card">
+      <img src="/mnt/user-data/uploads/1775171764808_image.png" alt="Arrosticini">
+    </div>
+    <div class="photo-card">
+      <img src="/mnt/user-data/uploads/1775171809121_image.png" alt="Pinsa Nutella">
+    </div>
+    <div class="photo-card wide">
+      <img src="/mnt/user-data/uploads/1775171737375_image.png" alt="Promozione Pinsa">
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="reviews-header">
+    <p class="about-label" style="text-align:center;">Le voci dei clienti</p>
+    <h2>Cosa dicono di <em>noi</em></h2>
+    <div style="display:flex; justify-content:center; margin-top:0.8rem;">
+      <div class="google-rating">
+        <span class="stars">★★★★★</span>
+        <strong>4.3</strong> su Google · Pizzeria Cinecittà
+      </div>
+    </div>
+  </div>
+
+  <div class="reviews-grid">
+
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">
+        Sono rimasto davvero colpito: un'esperienza completa che unisce qualità, passione e accoglienza. Le pizze sono straordinarie — impasto leggero e fragrante, lievitazione perfetta. La titolare è il cuore pulsante del locale: la sua passione traspare in ogni dettaglio, dalla selezione degli ingredienti alla cura del cliente. Una pizzeria che rappresenta l'eccellenza: qui non si mangia solo una pizza, si vive un'esperienza. Assolutamente consigliata.
+      </p>
+      <div><span class="reviewer-name">Cliente Google</span><span class="reviewer-source">via Google Maps</span></div>
+    </div>
+
+    <div class="review-card">
+      <div class="stars">★★★★☆</div>
+      <p class="review-text">
+        La pinseria è grande, con tavoli dotati di panche, molto semplici. Servizio veloce, i camerieri sempre di corsa. Le pinse sono buone e croccanti — la capricciosa (base rossa) più gustosa e ricca. Non sono un grande amante della Nutella, ma la loro pinsa dolce era perfetta.
+      </p>
+      <div><span class="reviewer-name">Cliente Google</span><span class="reviewer-source">via Google Maps</span></div>
+    </div>
+
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">
+        Pinseria no stop: nel menù incluso un antipasto, una bibita e le pinse. Impasto buonissimo e leggero, tutte le pinse condite abbondantemente. Ci sono molti gusti e si può ordinare le pinse con due gusti per dividerle a metà! Come ultima potrete ordinare quella alla Nutella. Molto consigliato, sicuramente ci tornerò per provare altri gusti!
+      </p>
+      <div><span class="reviewer-name">Cliente Google</span><span class="reviewer-source">via Google Maps</span></div>
+    </div>
+
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">
+        Una bella scoperta mangiare pinsa e bere in modalità illimitata. Pinsa molto buona — siamo riusciti a provare 6 tipi oltre quella con la nutella come finale. Un plauso anche per i ragazzi in sala che ci hanno accolto e servito: bravi e simpatici. Da tornare per provare tutte le altre pinse!
+      </p>
+      <div><span class="reviewer-name">Cliente Google</span><span class="reviewer-source">via Google Maps</span></div>
+    </div>
+
+  </div>
+
+  <div class="reviews-cta">
+    <a class="btn-primary" href="https://www.google.com/maps/place/Pizzeria+Cinecitt%C3%A0+-+Rimpinzami/@41.8544251,12.5582996,17z" target="_blank">
+      📖 Leggi tutte le recensioni su Google
+    </a>
+    <a class="btn-outline" href="https://www.google.com/maps/place/Pizzeria+Cinecitt%C3%A0+-+Rimpinzami/@41.8544251,12.5582996,17z" target="_blank">
+      ✏️ Scrivi una recensione
+    </a>
+  </div>
+</section>
+
+<!-- INFO -->
+<section id="info">
+  <div class="info-inner">
+    <div class="info-block">
+      <span class="info-icon">📍</span>
+      <h3>Dove siamo</h3>
+      <p>
+        Via Luscino Fabrizio, 122<br>
+        00174 Roma – Cinecittà<br><br>
+        <a href="https://www.google.com/maps/place/Pizzeria+Cinecitt%C3%A0+-+Rimpinzami/@41.8544251,12.5582996,17z" target="_blank">Aprire in Maps →</a>
+      </p>
+    </div>
+    <div class="info-block">
+      <span class="info-icon">🕐</span>
+      <h3>Orari</h3>
+      <p>
+        Tutti i giorni<br>
+        11:00 – 15:00<br>
+        19:00 – 24:00
+      </p>
+    </div>
+    <div class="info-block">
+      <span class="info-icon">📞</span>
+      <h3>Prenota</h3>
+      <p>
+        Consigliamo la prenotazione<br>
+        per gruppi e serate.<br><br>
+        <a href="tel:+393884690658">+39 388 469 0658</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 <strong>Rimpinzami</strong> — All You Can Eat · Roma · Cinecittà</p>
+</footer>
+
+<script>
+  function showTab(tab) {
+    document.querySelectorAll('.menu-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + tab).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  // Intersection Observer for fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.about-card, .menu-category, .photo-card, .info-block, .review-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
