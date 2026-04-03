@@ -44,38 +44,36 @@
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
-    z-index: 100;
+    z-index: 200;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1rem 3rem;
-    background: rgba(30,18,7,0.92);
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid rgba(201,150,42,0.25);
+    padding: 1rem 2.5rem;
+    background: rgba(30,18,7,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,150,42,0.2);
   }
 
   .nav-logo {
     font-family: 'Playfair Display', serif;
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     color: var(--gold);
     letter-spacing: 0.04em;
+    z-index: 201;
   }
 
-  .nav-logo span {
-    font-style: italic;
-    color: var(--terracotta);
-  }
+  .nav-logo span { font-style: italic; color: var(--terracotta); }
 
   nav ul {
     list-style: none;
     display: flex;
-    gap: 2.5rem;
+    gap: 2.2rem;
   }
 
   nav ul a {
     color: var(--parchment);
     text-decoration: none;
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     font-weight: 500;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -83,6 +81,64 @@
   }
 
   nav ul a:hover { color: var(--gold); }
+
+  /* Hamburger */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+    z-index: 201;
+    background: none;
+    border: none;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--parchment);
+    border-radius: 2px;
+    transition: all 0.35s ease;
+    transform-origin: center;
+  }
+
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* Mobile drawer */
+  .nav-drawer {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(14,9,5,0.97);
+    z-index: 199;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    pointer-events: none;
+  }
+
+  .nav-drawer.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .nav-drawer a {
+    color: var(--parchment);
+    text-decoration: none;
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-style: italic;
+    transition: color 0.2s;
+  }
+
+  .nav-drawer a:hover { color: var(--terracotta); }
 
   /* ── HERO ── */
   #hero {
@@ -783,17 +839,70 @@
   .google-rating strong { color: var(--dark); }
 
   /* ── RESPONSIVE ── */
+  /* ══ RESPONSIVE ══ */
   @media (max-width: 768px) {
-    nav { padding: 1rem 1.5rem; }
-    nav ul { gap: 1.2rem; }
-    nav ul a { font-size: 0.7rem; }
-    #about { grid-template-columns: 1fr; gap: 3rem; padding: 4rem 1.5rem; }
-    .menu-columns { grid-template-columns: 1fr; }
-    .menu-tabs { border-radius: 16px; flex-wrap: wrap; }
-    .photo-grid { grid-template-columns: 1fr 1fr; }
+
+    /* Nav */
+    nav { padding: 0.9rem 1.4rem; }
+    nav ul { display: none; }
+    .hamburger { display: flex; }
+    .nav-drawer { display: flex; }
+
+    /* Hero */
+    #hero { padding-top: 70px; padding-left: 1rem; padding-right: 1rem; }
+    .hero-logo-text { font-size: clamp(3.5rem, 18vw, 6rem); }
+    .hero-badges { flex-direction: column; align-items: center; gap: 0.6rem; }
+    .badge { font-size: 0.68rem; padding: 0.5rem 1.2rem; }
+
+    /* About */
+    #about { grid-template-columns: 1fr; gap: 2.5rem; padding: 4rem 1.4rem; }
+
+    /* Ornament */
+    .ornament { padding: 1rem; }
+
+    /* Menu */
+    #menu { padding: 4rem 1rem; }
+    .menu-tabs {
+      border-radius: 16px;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      padding: 0.3rem;
+      max-width: 100%;
+    }
+    .tab-btn {
+      flex: 1 1 40%;
+      font-size: 0.68rem;
+      padding: 0.6rem 0.5rem;
+      border-radius: 12px;
+      letter-spacing: 0;
+    }
+    .menu-columns { grid-template-columns: 1fr; gap: 0; }
+    .menu-col-title { font-size: 1.3rem; }
+
+    /* Gallery */
+    #gallery { padding: 4rem 1rem; }
+    .photo-grid { grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+    .photo-card { border-radius: 14px; }
     .photo-card.wide { grid-column: span 2; }
+
+    /* Reviews */
+    #reviews { padding: 4rem 1rem; }
+    .reviews-grid { grid-template-columns: 1fr; gap: 1rem; }
+    .reviews-cta { flex-direction: column; align-items: center; }
+    .btn-primary, .btn-outline { width: 100%; max-width: 320px; text-align: center; }
+
+    /* Info */
+    #info { padding: 3.5rem 1rem; }
     .info-inner { grid-template-columns: 1fr; gap: 1rem; }
-    .reviews-grid { grid-template-columns: 1fr; }
+    .info-block { padding: 1.8rem 1.2rem; }
+
+    /* Footer */
+    footer { font-size: 0.7rem; padding: 1.5rem 1rem; }
+  }
+
+  @media (max-width: 400px) {
+    .hero-logo-text { font-size: clamp(2.8rem, 16vw, 4rem); }
+    .tab-btn { flex: 1 1 100%; }
   }
 </style>
 </head>
@@ -809,7 +918,19 @@
     <li><a href="#reviews">Recensioni</a></li>
     <li><a href="#info">Info</a></li>
   </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE DRAWER -->
+<div class="nav-drawer" id="drawer">
+  <a href="#about" class="drawer-link">Chi siamo</a>
+  <a href="#menu" class="drawer-link">Menù</a>
+  <a href="#gallery" class="drawer-link">Foto</a>
+  <a href="#reviews" class="drawer-link">Recensioni</a>
+  <a href="#info" class="drawer-link">Info</a>
+</div>
 
 <!-- HERO -->
 <section id="hero">
@@ -1116,6 +1237,24 @@
 </footer>
 
 <script>
+  // HAMBURGER MENU
+  var hamburger = document.getElementById('hamburger');
+  var drawer = document.getElementById('drawer');
+
+  hamburger.addEventListener('click', function() {
+    hamburger.classList.toggle('open');
+    drawer.classList.toggle('open');
+    document.body.style.overflow = drawer.classList.contains('open') ? 'hidden' : '';
+  });
+
+  document.querySelectorAll('.drawer-link').forEach(function(link) {
+    link.addEventListener('click', function() {
+      hamburger.classList.remove('open');
+      drawer.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+
   // TAB SYSTEM
   document.querySelectorAll('.tab-btn').forEach(function(btn) {
     btn.addEventListener('click', function() {
